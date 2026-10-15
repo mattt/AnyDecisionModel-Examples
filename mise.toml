@@ -2,7 +2,13 @@
 
 [tasks.setup]
 description = "Resolve package dependencies without downloading models or datasets"
-run = "mise run _tool:mlx -- xcrun swift package resolve"
+run = '''
+mise run _tool:mlx -- xcrun swift package resolve
+mise run _tool:mlx -- xcodebuild -resolvePackageDependencies \
+    -project Examples/Chess/Chess.xcodeproj \
+    -scheme Chess \
+    -clonedSourcePackagesDirPath .build/xcode-packages
+'''
 
 [tasks.lint]
 description = "Check formatting of the root package"
@@ -18,7 +24,7 @@ run = "mise run _tool:mlx -- xcrun swift build -c release"
 
 [tasks.test]
 description = "Run all tests"
-depends = ["test:eval"]
+depends = ["test:eval", "test:chess"]
 
 [tasks."test:eval"]
 description = "Run the evaluation tests"
@@ -27,6 +33,44 @@ run = "mise run _tool:mlx -- xcrun swift test -c release"
 [tasks.example]
 description = "Run the ticket-routing example with MLX"
 run = "mise run _tool:mlx -- xcrun swift run -c release TicketRouting"
+
+[tasks."build:chess"]
+description = "Build the macOS Chess app"
+run = '''
+mise run _tool:mlx -- xcodebuild \
+    -project Examples/Chess/Chess.xcodeproj \
+    -scheme Chess \
+    -configuration Debug \
+    -derivedDataPath .build/xcode-chess \
+    -clonedSourcePackagesDirPath .build/xcode-packages \
+    -skipPackagePluginValidation \
+    -skipMacroValidation \
+    CODE_SIGN_IDENTITY=- \
+    build
+'''
+
+[tasks."test:chess"]
+description = "Run the Chess Xcode test target"
+run = '''
+mise run _tool:mlx -- xcodebuild test \
+    -project Examples/Chess/Chess.xcodeproj \
+    -scheme Chess \
+    -configuration Debug \
+    -destination 'platform=macOS' \
+    -enableCodeCoverage NO \
+    -derivedDataPath .build/xcode-chess \
+    -clonedSourcePackagesDirPath .build/xcode-packages \
+    -skipPackagePluginValidation \
+    -skipMacroValidation \
+    CODE_SIGN_IDENTITY=-
+'''
+
+[tasks."example:chess"]
+description = "Build and open the macOS Chess app"
+run = '''
+mise run build:chess
+open ".build/xcode-chess/Build/Products/Debug/AnyDecisionModel Chess.app"
+'''
 
 [tasks."eval:sanity"]
 description = "Run the nine sanity cases"
