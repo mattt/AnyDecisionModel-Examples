@@ -1,5 +1,6 @@
 #if DEBUG
 import AppKit
+import ScreenCaptureKit
 
 /// Debug-only launch options for inspecting the interface without system permissions.
 ///
@@ -53,7 +54,7 @@ enum ChessDebugAutomation {
         guard let snapshot else { return }
         try? await Task.sleep(for: .seconds(1))
         let directory = FileManager.default.temporaryDirectory
-        capture(window, to: directory.appending(path: "\(snapshot).png"))
+        await capture(window, to: directory.appending(path: "\(snapshot).png"))
         try? describeMenus().write(
             to: directory.appending(path: "\(snapshot)-menus.txt"),
             atomically: true,
@@ -115,11 +116,26 @@ enum ChessDebugAutomation {
         "a": 0, "b": 11, "f": 3, "i": 34, "n": 45, "r": 15,
     ]
 
-    private static func capture(_ window: NSWindow, to url: URL) {
-        guard let view = window.contentView?.superview,
-              let representation = view.bitmapImageRepForCachingDisplay(in: view.bounds)
+    /// Captures the window as the window server composites it.
+    ///
+    /// `cacheDisplay` skips vibrancy and Liquid Glass effects,
+    /// so it draws inspector text in black and omits the selected segment's label.
+    /// The current process can capture its own windows without Screen Recording permission.
+    private static func capture(_ window: NSWindow, to url: URL) async {
+        guard let content = try? await SCShareableContent.currentProcess,
+              let target = content.windows.first(where: { $0.windowID == CGWindowID(window.windowNumber) })
         else { return }
-        view.cacheDisplay(in: view.bounds, to: representation)
+        let filter = SCContentFilter(desktopIndependentWindow: target)
+        let configuration = SCStreamConfiguration()
+        configuration.width = Int(filter.contentRect.width * CGFloat(filter.pointPixelScale))
+        configuration.height = Int(filter.contentRect.height * CGFloat(filter.pointPixelScale))
+        configuration.showsCursor = false
+        configuration.ignoreShadowsSingleWindow = true
+        guard let image = try? await SCScreenshotManager.captureImage(
+            contentFilter: filter,
+            configuration: configuration
+        ) else { return }
+        let representation = NSBitmapImageRep(cgImage: image)
         try? representation.representation(using: .png, properties: [:])?.write(to: url)
     }
 
