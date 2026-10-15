@@ -8,6 +8,10 @@ mise run _tool:mlx -- xcodebuild -resolvePackageDependencies \
     -project Examples/Chess/Chess.xcodeproj \
     -scheme Chess \
     -clonedSourcePackagesDirPath .build/xcode-packages
+mise run _tool:mlx -- xcodebuild -resolvePackageDependencies \
+    -project Examples/EmojiMagnet/EmojiMagnet.xcodeproj \
+    -scheme EmojiMagnet \
+    -clonedSourcePackagesDirPath .build/xcode-packages
 '''
 
 [tasks.lint]
@@ -24,7 +28,7 @@ run = "mise run _tool:mlx -- xcrun swift build -c release"
 
 [tasks.test]
 description = "Run all tests"
-depends = ["test:eval", "test:chess"]
+depends = ["test:eval", "test:chess", "test:emoji-magnet"]
 
 [tasks."test:eval"]
 description = "Run the evaluation tests"
@@ -70,6 +74,59 @@ description = "Build and open the macOS Chess app"
 run = '''
 mise run build:chess
 open ".build/xcode-chess/Build/Products/Debug/AnyDecisionModel Chess.app"
+'''
+
+[tasks."build:emoji-magnet"]
+description = "Build the macOS Emoji Magnet app"
+run = '''
+mise run _tool:mlx -- xcodebuild \
+    -project Examples/EmojiMagnet/EmojiMagnet.xcodeproj \
+    -scheme EmojiMagnet \
+    -configuration Debug \
+    -derivedDataPath .build/xcode-emoji-magnet \
+    -clonedSourcePackagesDirPath .build/xcode-packages \
+    -skipPackagePluginValidation \
+    -skipMacroValidation \
+    CODE_SIGN_IDENTITY=- \
+    build
+'''
+
+[tasks."test:emoji-magnet"]
+description = "Run the Emoji Magnet Xcode test target"
+# Scene setup and controller timing tests share the main thread.
+run = '''
+mise run _tool:mlx -- xcodebuild test \
+    -project Examples/EmojiMagnet/EmojiMagnet.xcodeproj \
+    -scheme EmojiMagnet \
+    -configuration Debug \
+    -destination 'platform=macOS' \
+    -enableCodeCoverage NO \
+    -parallel-testing-enabled NO \
+    -derivedDataPath .build/xcode-emoji-magnet \
+    -clonedSourcePackagesDirPath .build/xcode-packages \
+    -skipPackagePluginValidation \
+    -skipMacroValidation \
+    CODE_SIGN_IDENTITY=-
+'''
+
+[tasks."example:emoji-magnet"]
+description = "Build and open the macOS Emoji Magnet app; pass --jev to use the workspace token"
+usage = 'flag "--jev" help="Pass TYPESAFE_AI_API_KEY to the app and use Jev"'
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+
+mise run build:emoji-magnet
+app_path=".build/xcode-emoji-magnet/Build/Products/Debug/AnyDecisionModel Emoji Magnet.app"
+if [ "${usage_jev:-false}" = "true" ]; then
+    if [ -z "${TYPESAFE_AI_API_KEY:-}" ]; then
+        echo "error: TYPESAFE_AI_API_KEY is not set" >&2
+        exit 1
+    fi
+    open -n --env "TYPESAFE_AI_API_KEY=$TYPESAFE_AI_API_KEY" "$app_path"
+else
+    open "$app_path"
+fi
 '''
 
 [tasks."eval:sanity"]
