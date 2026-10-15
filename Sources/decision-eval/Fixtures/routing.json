@@ -1,0 +1,413 @@
+{
+  "name": "routing",
+  "description": "Support-ticket routing to billing, technical, or sales.",
+  "provenance": {
+    "source": "Written for AnyDecisionModel by the coding agent that built the evaluation package",
+    "created": "2026-09-19",
+    "reviewStatus": "unreviewed",
+    "reviewers": [],
+    "notes": "Labels are the author's judgment. A person must review them and set reviewStatus to \"reviewed\" with reviewers and a date before results are published. r15 and r16 mix sales and billing on purpose."
+  },
+  "cases": [
+    {
+      "id": "r01",
+      "state": "My card was charged $49 but my plan still says Free.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "billing"
+      }
+    },
+    {
+      "id": "r02",
+      "state": "Can you send me a VAT invoice for last month's payment? Our accountant needs it.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "billing"
+      }
+    },
+    {
+      "id": "r03",
+      "state": "I cancelled in March and you kept charging me for April and May. I want that money back.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "billing"
+      }
+    },
+    {
+      "id": "r04",
+      "state": "The receipt lists the wrong company name. Please correct it and resend.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "billing"
+      }
+    },
+    {
+      "id": "r05",
+      "state": "Why did my renewal price go up from $10 to $12 without notice?",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "billing"
+      }
+    },
+    {
+      "id": "r06",
+      "state": "The export button does nothing. No file, no error message. Chrome 131 on Windows.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "technical"
+      }
+    },
+    {
+      "id": "r07",
+      "state": "I reset my password twice and still get 'invalid credentials' when I log in.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "technical"
+      }
+    },
+    {
+      "id": "r08",
+      "state": "Your API has returned 503 for every request since 09:40 UTC.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "technical"
+      }
+    },
+    {
+      "id": "r09",
+      "state": "The iOS app crashes as soon as I open the calendar tab.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "technical"
+      }
+    },
+    {
+      "id": "r10",
+      "state": "Two-factor codes arrive after they have expired, so I cannot sign in.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "technical"
+      }
+    },
+    {
+      "id": "r11",
+      "state": "Do you offer a discount for nonprofits?",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "sales"
+      }
+    },
+    {
+      "id": "r12",
+      "state": "We have 250 seats. Can we get a quote for the Enterprise plan with SSO?",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "sales"
+      }
+    },
+    {
+      "id": "r13",
+      "state": "What is the difference between the Team and Business plans?",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "sales"
+      }
+    },
+    {
+      "id": "r14",
+      "state": "Is there a trial for the Pro plan before we commit?",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "sales"
+      }
+    },
+    {
+      "id": "r15",
+      "state": "We want to upgrade from Team to Business mid-cycle. How does that work?",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "sales"
+      }
+    },
+    {
+      "id": "r16",
+      "state": "I upgraded yesterday and was billed for the full year instead of the prorated amount.",
+      "question": {
+        "kind": "choice",
+        "instructions": "Which team should handle this support ticket?",
+        "options": [
+          {
+            "name": "billing",
+            "description": "payments, charges, refunds, invoices"
+          },
+          {
+            "name": "technical",
+            "description": "bugs, outages, errors, login problems"
+          },
+          {
+            "name": "sales",
+            "description": "pricing questions, upgrades, new purchases"
+          }
+        ]
+      },
+      "expected": {
+        "label": "billing"
+      }
+    }
+  ]
+}

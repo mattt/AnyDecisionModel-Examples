@@ -1,0 +1,14 @@
+.DS_Store
+.env
+.build/
+.swiftpm/
+xcuserdata/
+*.xcuserstate
+DerivedData/
+.context/
+/reports/
+/datasets/
+/models/
+*.safetensors
+*.gguf
+.conductor/

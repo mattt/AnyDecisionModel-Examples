@@ -1,0 +1,80 @@
+# Swift and Metal come from the selected Xcode installation.
+
+[tasks.setup]
+description = "Resolve package dependencies without downloading models or datasets"
+run = "mise run _tool:mlx -- xcrun swift package resolve"
+
+[tasks.lint]
+description = "Check formatting of the root package"
+run = "xcrun swift format lint --strict --recursive Package.swift Sources Tests"
+
+[tasks.format]
+description = "Format the root package in place"
+run = "xcrun swift format --in-place --recursive Package.swift Sources Tests"
+
+[tasks.build]
+description = "Build both executables with MLX"
+run = "mise run _tool:mlx -- xcrun swift build -c release"
+
+[tasks.test]
+description = "Run all tests"
+depends = ["test:eval"]
+
+[tasks."test:eval"]
+description = "Run the evaluation tests"
+run = "mise run _tool:mlx -- xcrun swift test -c release"
+
+[tasks.example]
+description = "Run the ticket-routing example with MLX"
+run = "mise run _tool:mlx -- xcrun swift run -c release TicketRouting"
+
+[tasks."eval:sanity"]
+description = "Run the nine sanity cases"
+run = "mise run _tool:mlx -- xcrun swift run -c release decision-eval sanity"
+
+[tasks."eval:routing"]
+description = "Run the routing fixtures and the fallback report"
+run = "mise run _tool:mlx -- xcrun swift run -c release decision-eval routing"
+
+[tasks."eval:robustness"]
+description = "Run the robustness probes"
+run = "mise run _tool:mlx -- xcrun swift run -c release decision-eval robustness"
+
+[tasks."eval:boolq"]
+description = "Evaluate 200 BoolQ items"
+run = "mise run _tool:mlx -- xcrun swift run -c release decision-eval boolq --n 200 --seed 0"
+
+[tasks."eval:agnews"]
+description = "Evaluate 200 AG News items"
+run = "mise run _tool:mlx -- xcrun swift run -c release decision-eval agnews --n 200 --seed 0"
+
+[tasks."eval:calibrate"]
+description = "Fit a calibration on separate data and report held-out metrics"
+run = "mise run _tool:mlx -- xcrun swift run -c release decision-eval calibrate --fit 200 --test 200 --seed 1"
+
+[tasks."eval:latency"]
+description = "Measure cold loading and warm batch latency"
+run = "mise run _tool:mlx -- xcrun swift run -c release decision-eval latency --batches 1,8,32 --repetitions 10"
+
+[tasks."_tool:mlx"]
+hide = true
+run = '''
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! xcrun --find metal >/dev/null 2>&1; then
+    metal_bin=""
+    for candidate in /private/var/run/com.apple.security.cryptexd/mnt/*MetalToolchain*/Metal.xctoolchain/usr/bin; do
+        if [ -x "$candidate/metal" ]; then
+            metal_bin="$candidate"
+        fi
+    done
+    if [ -z "$metal_bin" ]; then
+        echo "error: Metal compiler not found. Run: xcodebuild -downloadComponent MetalToolchain" >&2
+        exit 1
+    fi
+    export PATH="$metal_bin:$PATH"
+fi
+
+exec "$@"
+'''
