@@ -1,13 +1,13 @@
 {
-  "originHash" : "6b22da4741e7182c272936d6b1ea80cd9d1d78b950cb60711bb9faa162a13b5d",
+  "originHash" : "d415b5d80cf50c87507a7a62255eb8306639b2fd955971dfc1862fb628880824",
   "pins" : [
     {
       "identity" : "anydecisionmodel",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattt/AnyDecisionModel.git",
       "state" : {
-        "revision" : "2fec2ceb84361fcef5eae77a4fe92720f16716f7",
-        "version" : "0.5.0"
+        "revision" : "66b2fe218989c26e53267b91271278256863f8a7",
+        "version" : "0.6.0"
       }
     },
     {

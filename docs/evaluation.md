@@ -33,7 +33,7 @@ Review the labels before you publish results from them.
 
 The evaluation code and fixtures came from AnyDecisionModel commit
 `6ba547e5c63cd9a5e6d69215e1a29f5e7dcb9f8a`
-and now use the AnyDecisionModel 0.5.0 API.
+and now use the AnyDecisionModel 0.6.0 API.
 Run `mise run eval:sanity -- --help` for all options.
 
 BoolQ uses the validation split of `google/boolq`.

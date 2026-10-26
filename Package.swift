@@ -12,7 +12,7 @@ let package = Package(
         .executable(name: "decision-eval", targets: ["decision-eval"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/mattt/AnyDecisionModel.git", exact: "0.5.0", traits: ["MLX"])
+        .package(url: "https://github.com/mattt/AnyDecisionModel.git", exact: "0.6.0", traits: ["MLX"])
     ],
     targets: [
         .executableTarget(
