@@ -141,7 +141,8 @@ MLX evaluates the questions in groups of 16,
 starting with the items that matched the previous phrase.
 It processes the shared state once with prefix caching,
 then each group in one forward pass.
-On an M4 Max, a group takes about 0.4 seconds after the model loads.
+On an M4 Max, a group takes about 0.4 seconds after the model loads,
+and a full pass over the 343 items takes about 10 seconds.
 Results apply as each group finishes,
 and a new phrase cancels the evaluation in progress.
 Jev receives all questions in one request.

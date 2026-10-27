@@ -344,7 +344,7 @@
 			repositoryURL = "https://github.com/mattt/AnyDecisionModel.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.5.0;
+				version = 0.6.0;
 			};
 			traits = (MLX,);
 		};
