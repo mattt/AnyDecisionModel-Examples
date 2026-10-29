@@ -114,7 +114,7 @@ open ".build/xcode-chess/Build/Products/Debug/AnyDecisionModel Chess.app" \
 
 ## Emoji Magnet
 
-![Emoji Magnet with the phrase "things you wear" and twelve clothing items above the pile](docs/images/emoji-magnet.png)
+https://github.com/user-attachments/assets/e5043120-fb87-4bbf-9ecb-1beb132bb196
 
 The idea comes from [a Jev demo by @heystefan_](https://x.com/heystefan_/status/2101369117496521042).
 
