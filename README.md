@@ -116,6 +116,8 @@ open ".build/xcode-chess/Build/Products/Debug/AnyDecisionModel Chess.app" \
 
 ![Emoji Magnet with the phrase "things you wear" and twelve clothing items above the pile](docs/images/emoji-magnet.png)
 
+The idea comes from [a Jev demo by @heystefan_](https://x.com/heystefan_/status/2101369117496521042).
+
 Type a phrase, such as "things you wear",
 and the matching emoji rise out of a pile of 343.
 Change it to "things you wear in winter",
