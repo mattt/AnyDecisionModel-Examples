@@ -32,7 +32,7 @@ let package = Package(
         ),
         .testTarget(
             name: "DecisionEvaluationTests",
-            dependencies: ["DecisionEvaluation"]
+            dependencies: ["DecisionEvaluation", "decision-eval"]
         ),
     ]
 )

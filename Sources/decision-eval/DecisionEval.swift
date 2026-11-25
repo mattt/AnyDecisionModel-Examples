@@ -21,6 +21,7 @@ let usage = """
     Model options:
       --model <id>              Hugging Face model ID (default: \(defaultModelID))
       --model-directory <path>  Load model files from a local directory.
+                                Reports record this path unless --model is supplied.
       --calibration <file>      Apply a calibration JSON file written by `calibrate`.
       --debias                  Average choice results over option rotations.
       --prefix-cache            Enable the session prefix cache after validating it.
@@ -58,6 +59,10 @@ struct Options {
                 throw EvaluationError.usage("Missing value for \(argument).")
             }
         }
+    }
+
+    var reportModel: String {
+        values["model"] ?? values["model-directory"] ?? defaultModelID
     }
 
     func int(_ name: String, default value: Int) throws -> Int {
@@ -214,7 +219,7 @@ struct DecisionEval {
         func metadata(_ command: String) -> RunMetadata {
             RunMetadata(
                 command: command,
-                model: model.modelID,
+                model: options.reportModel,
                 backend: "mlx",
                 modelRevision: options.values["model-revision"],
                 libraryRevision: options.values["revision"],
